@@ -1,0 +1,18 @@
+<main class='main'>
+    <div class="App" [class]="tipoClass">
+        <div class='left'>
+            <h1 class='title'>Pokedex</h1>
+            <form onSubmit={handleSubmit} class='form'>
+                <input type="text" name="email" autoComplete='off' placeholder='Usuario' />
+
+                <input type="password" name="password" placeholder='Contraseña' />
+                <button type="submit" class="button">
+                    Enviar
+                </button>
+            </form>
+        </div>
+        <div class='right'>
+            <img class='image-pokemon' src={{url}} alt="Pokemon" />
+        </div>
+    </div>
+</main>
