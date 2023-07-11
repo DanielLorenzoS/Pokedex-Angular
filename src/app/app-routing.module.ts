@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component';
 import { FetchComponent } from './pages/fetch/fetch.component';
 import { SavedComponent } from './pages/saved/saved.component';
+import { authGuard } from './auth.guard';
 
 const routes: Routes = [
-  { path: 'login', component: LoginComponent },
-  { path: 'fetch', component: FetchComponent },
-  { path: 'saved', component: SavedComponent }
+  { path: '', component: LoginComponent },
+  { path: 'fetch', component: FetchComponent, canActivate: [authGuard] },
+  { path: 'saved', component: SavedComponent, canActivate: [authGuard] },
+  { path: '**', redirectTo: '/'}
 ];
 
 @NgModule({

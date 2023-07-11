@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class NavComponent {
 
+  delete() {
+    sessionStorage.removeItem('isLoggedIn');
+  }
+
 }

@@ -13,6 +13,8 @@
 }
 
 .title {
+    padding: 1rem;
+    color: white;
     margin-bottom: 2rem;
     font-weight: 200;
     font-size: 60px;
@@ -32,7 +34,7 @@
 
 input,
 button {
-    color: #fff;
+    color: #0d6efd;
     text-align: center;
     padding: 1rem 2rem;
     margin: 1rem 0;
@@ -42,11 +44,11 @@ button {
 }
 
 input {
-    border-bottom: thin solid #fff;
+    border-bottom: thin solid #0d6efd;
 }
 
 input::placeholder {
-    color: white;
+    color: #0d6efd;
 }
 
 button {
@@ -58,9 +60,9 @@ button {
 }
 
 button:hover {
-    color: #fff;
+    color: #0d6efd;
     background-color: transparent;
-    border: thin solid #fff;
+    border: thin solid #0d6efd;
 }
 
 .disabled {

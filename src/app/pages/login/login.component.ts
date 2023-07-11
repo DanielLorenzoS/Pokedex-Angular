@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
+import { PokedexService } from 'src/app/services/pokedex.service';
 
 @Component({
   selector: 'app-login',
@@ -7,12 +9,14 @@ import { PokeapiService } from 'src/app/services/pokeapi.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private pokeapiService: PokeapiService) { }
+  constructor(private pokeapiService: PokeapiService, private pokedexService: PokedexService, private router: Router) { }
 
   url: string = '';
-
   tipoClass: string = '';
   tipo: string = '';
+  email: string = '';
+  password: string = '';
+  bln: boolean = false;
 
   ngOnInit(): void {
     this.getPokemon();
@@ -44,4 +48,27 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  handleLogin() {
+    this.pokedexService.isAuthenticated(this.email, this.password).subscribe(
+      (res: any) => {
+        console.log('Entro..', res);
+        sessionStorage.setItem('isLoggedIn', 'true');
+        console.log(sessionStorage.getItem('isLoggedIn'))
+        this.router.navigate(['/fetch']);
+      },
+      (error: any) => {
+        console.error('Error en la solicitud:', error.status);
+      }
+    );
+    
+  }
+
+  isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
+
+  handleAuth(): boolean {
+    console.log('aaaaaaaauth ' + sessionStorage.getItem('isLoggedIn'))
+    return sessionStorage.getItem('isLoggedIn') === 'true';
+  }
+
 }

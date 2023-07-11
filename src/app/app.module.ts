@@ -10,6 +10,7 @@ import { FetchComponent } from './pages/fetch/fetch.component';
 import { SavedComponent } from './pages/saved/saved.component';
 import { NavComponent } from './components/nav/nav.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -24,10 +25,11 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    FormsModule,
     HttpClientModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [LoginComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

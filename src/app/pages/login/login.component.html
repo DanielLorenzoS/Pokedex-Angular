@@ -1,18 +1,19 @@
 <main class='main'>
-    <div class="App" [class]="tipoClass">
-        <div class='left'>
-            <h1 class='title'>Pokedex</h1>
-            <form onSubmit={handleSubmit} class='form'>
-                <input type="text" name="email" autoComplete='off' placeholder='Usuario' />
-
-                <input type="password" name="password" placeholder='Contraseña' />
-                <button type="submit" class="button">
-                    Enviar
-                </button>
-            </form>
-        </div>
-        <div class='right'>
-            <img class='image-pokemon' src={{url}} alt="Pokemon" />
-        </div>
+    <div class="App">
+      <div class='left'>
+        <h1 class='title' [class]="tipoClass">Pokedex</h1>
+        <form (ngSubmit)="handleLogin()" class='form'>
+          <input type="text" name="email" [(ngModel)]="email" autoComplete='off' placeholder='Usuario' />
+  
+          <input type="password" name="password" [(ngModel)]="password" placeholder='Contraseña' />
+          <button class="button" type="submit">
+            Enviar
+          </button>
+        </form>
+      </div>
+      <div class='right'>
+        <img class='image-pokemon' [src]="url" alt="Pokemon" />
+      </div>
     </div>
-</main>
+  </main>
+  
