@@ -6,65 +6,42 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class PokedexService {
 
+  url: string = 'https://pokedex-auth-production.up.railway.app';
+
   constructor(private http: HttpClient) { }
 
   isAuthenticated(email: string, password: string) {
-    let url = 'http://localhost:8080/auth';
     let credentials = btoa(`${email}:${password}`);
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.get(url, { headers })
+    return this.http.get(`${this.url}/auth`, { headers })
 
   }
 
-  /* isAuthenticated(email: string, password: string): boolean {
-    let bln;
-    let url = 'http://localhost:8080/auth';
-    let credentials = btoa(`${email}:${password}`);
-
-    const headers = new HttpHeaders({
-      'Authorization': `Basic ${credentials}`
-    });
-
-    if (this.http.get(url, { headers })) {
-      bln = true;
-    } else {
-      bln = false;
-    }
-
-    return bln;
-
-  } */
-
   getAccess(email: string, password: string) {
-    let url = 'http://localhost:8080/';
     let credentials = btoa(`${email}:${password}`);
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.get(url, { headers });
+    return this.http.get(`${this.url}`, { headers });
   }
 
   getPokemons() {
-    let url = 'http://localhost:8080/';
-
     let credentials = sessionStorage.getItem('credentials');
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.get(url, { headers });
+    return this.http.get(`${this.url}`, { headers });
   }
 
   addPokemon(id: number) {
-    let url = 'http://localhost:8080/';
-
     let credentials = sessionStorage.getItem('credentials');
 
     const pokemon = { "pokemon": id };
@@ -73,19 +50,17 @@ export class PokedexService {
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.post(url, pokemon, { headers });
+    return this.http.post(`${this.url}`, pokemon, { headers });
   }
 
   deletePokemon(id: number) {
-    let url = `http://localhost:8080/${id}`;
-
     let credentials = sessionStorage.getItem('credentials');
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.delete(url, { headers });
+    return this.http.delete(`${this.url}/${id}`, { headers });
   }
 
 
