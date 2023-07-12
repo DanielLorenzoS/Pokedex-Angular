@@ -59,11 +59,11 @@ button {
     cursor: pointer;
 }
 
-button:hover {
+/* button:hover {
     color: #0d6efd;
     background-color: transparent;
     border: thin solid #0d6efd;
-}
+} */
 
 .disabled {
     background-color: #fff;
@@ -71,7 +71,7 @@ button:hover {
     cursor: default;
 }
 
-.disabled:hover {
+.disabled {
     border: thin solid #666;
     color: #666;
 }
@@ -112,4 +112,14 @@ button:hover {
 /* Info (información) */
 .bg-info {
     background-color: #0dcaf0;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
 }

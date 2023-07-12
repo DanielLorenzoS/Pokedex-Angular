@@ -1,0 +1,24 @@
+.container {
+    padding-top: 4rem;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.subtitle {
+    font-size: 30px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+.card, .change {
+    width: 40%;
+    margin: auto;
+}
+
+.change {
+    font-size: 18px;
+    margin-top: 3rem;
+    height: 50px;
+}

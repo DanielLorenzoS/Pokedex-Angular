@@ -1,5 +1,12 @@
 <div>
-    <button mat-raised-button color="accent" routerLink="/fetch">Fetch</button>
-    <button mat-raised-button color="accent" routerLink="/saved">Saved</button>
-    <button mat-raised-button color="accent" (click)="delete()" routerLink="/">Log out</button>
+    <nav class="nav">
+        <div class="title">
+            <h1>Pokedex</h1>
+        </div>
+        <div class="buttons">
+            <button class="mrb" mat-raised-button color="primary" routerLink="/fetch">Fetch</button>
+            <button class="mrb" mat-raised-button color="primary" routerLink="/saved">Saved</button>
+            <button class="mrb" mat-raised-button color="primary" (click)="delete()" routerLink="/">Log out</button>
+        </div>
+    </nav>
 </div>

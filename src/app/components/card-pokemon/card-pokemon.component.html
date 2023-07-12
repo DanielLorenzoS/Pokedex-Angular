@@ -1,0 +1,12 @@
+<div class="cardd text-center" [class]="getTipoClass()">
+    <img class="image" [src]="urlImage" alt="Card image cap" />
+    <div class="">
+        <h5 class="cardtitle">{{ nombre }}</h5>
+        <p class="id">{{ id }}</p>
+    </div>
+    <ul class="listext">
+        <li class="itlist">{{ tipo }}</li>
+        <li class="itlist">{{ habilidades }}</li>
+    </ul>
+    <button class="btn" mat-stroked-button (click)="onButtonClick()">{{ action }}</button>
+</div>

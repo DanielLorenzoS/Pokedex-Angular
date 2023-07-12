@@ -1,2 +1,11 @@
 <app-nav />
-<h1>saveeeeeed</h1>
+<h2 class="subtitle">Tus pokemons favoritos</h2>
+
+<div class="container">
+    <div class="repeat" *ngFor="let item of listPokemons">
+        <app-card-pokemon class="card" [urlImage]="item.url" [nombre]="item.name" [tipo]="item.tipo"
+            [habilidades]="item.abilities" action="Eliminar"
+            (buttonClick)="handleDeletePokemon(item.id, item.name)"></app-card-pokemon>
+    </div>
+    <h3 class="subtitle" *ngIf="!listPokemons.length">No tienes elementos guardados</h3>
+</div>

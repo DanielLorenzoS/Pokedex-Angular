@@ -1,0 +1,15 @@
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    background-color: #264de4;
+    padding: 1rem;
+}
+.title h1 {
+    margin: 0;
+}
+
+.mrb {
+    margin-right: .8rem;
+}

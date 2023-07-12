@@ -47,7 +47,46 @@ export class PokedexService {
       'Authorization': `Basic ${credentials}`
     });
 
-    return this.http.get(url, { headers })
-
+    return this.http.get(url, { headers });
   }
+
+  getPokemons() {
+    let url = 'http://localhost:8080/';
+
+    let credentials = sessionStorage.getItem('credentials');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Basic ${credentials}`
+    });
+
+    return this.http.get(url, { headers });
+  }
+
+  addPokemon(id: number) {
+    let url = 'http://localhost:8080/';
+
+    let credentials = sessionStorage.getItem('credentials');
+
+    const pokemon = { "pokemon": id };
+
+    const headers = new HttpHeaders({
+      'Authorization': `Basic ${credentials}`
+    });
+
+    return this.http.post(url, pokemon, { headers });
+  }
+
+  deletePokemon(id: number) {
+    let url = `http://localhost:8080/${id}`;
+
+    let credentials = sessionStorage.getItem('credentials');
+
+    const headers = new HttpHeaders({
+      'Authorization': `Basic ${credentials}`
+    });
+
+    return this.http.delete(url, { headers });
+  }
+
+
 }

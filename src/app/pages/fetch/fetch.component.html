@@ -1,2 +1,9 @@
 <app-nav />
-<h1>feeeeetch</h1>
+<h2 class="subtitle">Selecciona tu pokemon favorito</h2>
+<div class="container">
+    <app-card-pokemon class="card" [urlImage]="url" [id]="id"
+    [nombre]="nombre" [tipo]="tipo" [habilidades]="habilidades" action="Añadir"
+    (buttonClick)="handleAddPokemon()"></app-card-pokemon>
+    <button class="change" mat-raised-button color="accent" (click)="changePokemon()">Cambiar Pokemon</button>
+</div>
+

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { PokedexService } from 'src/app/services/pokedex.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +11,10 @@ import { PokedexService } from 'src/app/services/pokedex.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  emailFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
+
   constructor(private pokeapiService: PokeapiService, private pokedexService: PokedexService, private router: Router) { }
 
   url: string = '';
@@ -53,12 +59,24 @@ export class LoginComponent implements OnInit {
     this.pokedexService.isAuthenticated(this.email, this.password).subscribe(
       (res: any) => {
         console.log('Entro..', res);
+        let credentials = btoa(`${this.email}:${this.password}`);
         sessionStorage.setItem('isLoggedIn', 'true');
-        console.log(sessionStorage.getItem('isLoggedIn'))
+        sessionStorage.setItem('credentials', credentials)
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Logged successfully',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.router.navigate(['/fetch']);
       },
       (error: any) => {
-        console.error('Error en la solicitud:', error.status);
+        Swal.fire({
+          title: 'Oops...',
+          text: `Credenciales incorrectas`,
+          icon: 'error',
+        });
       }
     );
     
@@ -67,7 +85,6 @@ export class LoginComponent implements OnInit {
   isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 
   handleAuth(): boolean {
-    console.log('aaaaaaaauth ' + sessionStorage.getItem('isLoggedIn'))
     return sessionStorage.getItem('isLoggedIn') === 'true';
   }
 

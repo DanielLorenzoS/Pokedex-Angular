@@ -9,8 +9,11 @@ import {MatButtonModule} from '@angular/material/button';
 import { FetchComponent } from './pages/fetch/fetch.component';
 import { SavedComponent } from './pages/saved/saved.component';
 import { NavComponent } from './components/nav/nav.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
+import { CardPokemonComponent } from './components/card-pokemon/card-pokemon.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatInputModule} from '@angular/material/input';
+
 
 
 @NgModule({
@@ -19,15 +22,18 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     FetchComponent,
     SavedComponent,
-    NavComponent
+    NavComponent,
+    CardPokemonComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule,
     HttpClientModule,
-    MatButtonModule
+    MatButtonModule,
+    FormsModule,
+    MatInputModule,
+    ReactiveFormsModule
   ],
   providers: [LoginComponent],
   bootstrap: [AppComponent]

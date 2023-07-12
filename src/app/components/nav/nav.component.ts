@@ -9,6 +9,7 @@ export class NavComponent {
 
   delete() {
     sessionStorage.removeItem('isLoggedIn');
+    sessionStorage.removeItem('credentials');
   }
 
 }
