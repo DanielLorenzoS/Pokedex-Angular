@@ -22,3 +22,9 @@
     margin-top: 3rem;
     height: 50px;
 }
+
+@media screen and (max-width: 550px) {
+    .card, .change {
+       width: 80%;
+    }   
+   }

@@ -6,10 +6,132 @@
     background-color: #264de4;
     padding: 1rem;
 }
+
 .title h1 {
     margin: 0;
 }
 
 .mrb {
     margin-right: .8rem;
+}
+
+.nav-res-button {
+    display: none;
+    height: max-content;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.image,
+.image2,
+.image3 {
+    display: none;
+    width: 45px;
+    height: 2px;
+    background-color: #fff;
+    transition: 0.5s ease-out;
+    margin: .4rem auto;
+}
+
+.buttons-res {
+    position: absolute;
+    background-color: #7b1fa2;
+    top: 4.8rem;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    transition: .2s ease-in-out;
+    opacity: 1;
+}
+/* .btns {
+    background-color: blue;
+} */
+.mrb-res {
+    width: 100% !important;
+    font-size: 32px;
+    font-family: 'Times New Roman', Times, serif;
+    box-shadow: 1px 1px 1px #7614a0;
+    padding: 2rem 0 !important;
+}
+
+.buttons-res-clicked {
+    display: none;
+    right: 10rem;
+    opacity: 0;
+}
+
+@media (max-width: 550px) {
+    .mrb {
+        display: none;
+    }
+
+    .nav-res-button,
+    .image,
+    .image2,
+    .image3 {
+        display: block;
+    }
+
+    .nav-res-button {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .image2-clicked {
+        display: none;
+    }
+
+    .image-clicked {
+        transform: rotate(45deg);
+        position: absolute;
+        top: 35px;
+    }
+
+    .image3-clicked {
+        transform: rotate(-45deg);
+        position: absolute;
+        top: 35px;
+    }
+
+    .nav-res-button-clicked {
+        width: 50px;
+        height: 50px;
+    }
+
+    .nav-res {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        top: 5rem;
+        left: -50rem;
+        height: 90%;
+        width: 100%;
+        transition: 0.5s ease-out;
+        opacity: .8;
+    }
+
+    .nav-res-clicked {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background-color: #000;
+        top: 5rem;
+        left: 0;
+        height: 90%;
+        width: 100%;
+        transition: 0.5s ease-out;
+        z-index: 1;
+        opacity: .8;
+    }
 }

@@ -5,7 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PokedexService {
-
+  
+  /* url: string = 'http://localhost:8080'; */
   url: string = 'https://pokedex-auth-production.up.railway.app';
 
   constructor(private http: HttpClient) { }
@@ -41,10 +42,10 @@ export class PokedexService {
     return this.http.get(`${this.url}`, { headers });
   }
 
-  addPokemon(id: number) {
+  addPokemon(id_pokemon: number, id: number) {
     let credentials = sessionStorage.getItem('credentials');
 
-    const pokemon = { "pokemon": id };
+    const pokemon = { "pokemon": id_pokemon, "id_user": id };
 
     const headers = new HttpHeaders({
       'Authorization': `Basic ${credentials}`

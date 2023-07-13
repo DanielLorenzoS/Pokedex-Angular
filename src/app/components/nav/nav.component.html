@@ -8,5 +8,17 @@
             <button class="mrb" mat-raised-button color="primary" routerLink="/saved">Saved</button>
             <button class="mrb" mat-raised-button color="primary" (click)="delete()" routerLink="/">Log out</button>
         </div>
+        <button [ngClass]="buttonClicked ? 'nav-res-button nav-res-button-clicked' : 'nav-res-button'"
+            (click)="handleButtonClick()">
+            <div [ngClass]="buttonClicked ? 'image image-clicked' : 'image'"></div>
+            <div [ngClass]="buttonClicked ? 'image2 image2-clicked' : 'image2'"></div>
+            <div [ngClass]="buttonClicked ? 'image3 image3-clicked' : 'image3'"></div>
+        </button>
+        <div class="buttons-res" [ngClass]="!buttonClicked ? 'buttons-res-clicked' : 'buttons-res'">
+                <button class="mrb-res" mat-raised-button color="accent" routerLink="/fetch">Home</button>
+                <button class="mrb-res" mat-raised-button color="accent" routerLink="/saved">Save</button>
+                <button class="mrb-res" mat-raised-button color="accent" (click)="delete()" routerLink="/">Log
+                    out</button>
+        </div>
     </nav>
 </div>

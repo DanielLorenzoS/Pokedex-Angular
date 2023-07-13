@@ -3,6 +3,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { PokedexService } from 'src/app/services/pokedex.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,7 +16,10 @@ export class LoginComponent implements OnInit {
   emailFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
   passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
 
-  constructor(private pokeapiService: PokeapiService, private pokedexService: PokedexService, private router: Router) { }
+  constructor(private pokeapiService: PokeapiService,
+    private pokedexService: PokedexService,
+    private router: Router,
+    private userService: UserService) { }
 
   url: string = '';
   tipoClass: string = '';
@@ -62,6 +66,12 @@ export class LoginComponent implements OnInit {
         let credentials = btoa(`${this.email}:${this.password}`);
         sessionStorage.setItem('isLoggedIn', 'true');
         sessionStorage.setItem('credentials', credentials)
+        this.userService.getUserByUsername(this.email).subscribe(
+          (res: any) => {
+            sessionStorage.setItem('id', res.id);
+            console.log(typeof (res.id))
+          }
+        )
         Swal.fire({
           position: 'center',
           icon: 'success',
@@ -69,7 +79,7 @@ export class LoginComponent implements OnInit {
           showConfirmButton: false,
           timer: 1500
         })
-        this.router.navigate(['/fetch']);
+        this.router.navigate(['/fetch'], { queryParams: { email: this.email }});
       },
       (error: any) => {
         Swal.fire({
@@ -79,7 +89,7 @@ export class LoginComponent implements OnInit {
         });
       }
     );
-    
+
   }
 
   isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';

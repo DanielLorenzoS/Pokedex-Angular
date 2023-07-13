@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { PokedexService } from 'src/app/services/pokedex.service';
+import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { LoginComponent } from '../login/login.component';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface MyPokemon {
   pokemon: number;
@@ -14,7 +17,8 @@ interface MyPokemon {
 })
 export class FetchComponent implements OnInit {
 
-  constructor(private pokeapiService: PokeapiService, private pokedexService: PokedexService) { }
+  constructor(private pokeapiService: PokeapiService,
+    private pokedexService: PokedexService,) { }
 
   id!: number;
   url!: string;
@@ -23,6 +27,8 @@ export class FetchComponent implements OnInit {
   nombre!: string;
   habilidades!: string[];
   myPokemons: MyPokemon[] = [];
+  sessionId!: number;
+
 
   ngOnInit(): void {
     this.getPokemon();
@@ -64,10 +70,16 @@ export class FetchComponent implements OnInit {
   }
 
   getPokemons() {
+    const numeroGuardado = sessionStorage.getItem('id');
+    this.sessionId = numeroGuardado ? parseInt(numeroGuardado, 10) : 0;
+    console.log(this.sessionId)
     this.pokedexService.getPokemons().subscribe(
       (res: any) => {
         res.map((e: any) => {
-          this.myPokemons.push({ pokemon: e.pokemon })
+          if (e.id_user === this.sessionId) {
+            console.log(e)
+            this.myPokemons.push({ pokemon: e.pokemon })
+          }
         });
       }
     );
@@ -75,7 +87,11 @@ export class FetchComponent implements OnInit {
 
   handleAddPokemon(): void {
 
+    /* const numeroGuardado = sessionStorage.getItem('id');
+    this.sessionId = numeroGuardado ? parseInt(numeroGuardado, 10) : 0; */
+    console.log(this.myPokemons)
     const exists = this.myPokemons.some((e: any) => e.pokemon === this.id);
+    console.log(this.myPokemons)
 
     if (exists) {
       Swal.fire({
@@ -92,7 +108,8 @@ export class FetchComponent implements OnInit {
         cancelButtonText: 'Cancelar',
       }).then((result) => {
         if (result.isConfirmed) {
-          this.pokedexService.addPokemon(this.id).subscribe(
+          let user_id = sessionStorage.getItem('id');
+          this.pokedexService.addPokemon(this.id, this.sessionId).subscribe(
             (res) => {
               this.changePokemon();
               this.myPokemons.push({ pokemon: this.id });

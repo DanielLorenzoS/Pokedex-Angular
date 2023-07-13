@@ -7,9 +7,17 @@ import { Component } from '@angular/core';
 })
 export class NavComponent {
 
+  buttonClicked: boolean = false;
+
+  handleButtonClick() {
+    this.buttonClicked = !this.buttonClicked;
+    console.log(this.buttonClicked)
+  }
+
   delete() {
     sessionStorage.removeItem('isLoggedIn');
     sessionStorage.removeItem('credentials');
+    sessionStorage.removeItem('id');
   }
 
 }
