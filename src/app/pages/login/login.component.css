@@ -135,6 +135,7 @@ button {
     .App {
         padding: 0;
         padding-top: .5rem;
+        margin: auto;
     }
 
     .left {
@@ -144,7 +145,10 @@ button {
 
     .title {
         margin: 0;
-        margin-bottom: .5rem;
+        margin-bottom: 1rem;
+    }
+    .main {
+        margin: auto;
     }
 
 }
