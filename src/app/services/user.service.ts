@@ -6,7 +6,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class UserService {
 
-  url: string = 'http://localhost:8080';
+  /* url: string = 'http://localhost:8080'; */
+  url: string = 'https://pokedex-auth-production.up.railway.app';
 
   constructor(private http: HttpClient) { }
 
