@@ -16,9 +16,11 @@
           Ingresa una contraseña de al menos 5 caracteres
         </mat-error>
         <button [ngClass]="(!passwordFormControl.hasError('required') && !emailFormControl.hasError('required')) ? 'button' : 'disabled'" type="submit">
-          Enviar
+          Acceder
         </button>        
       </form>
+      <button class="registro" (click)="irRegistro()">Registrarme</button>
+      <button class="registro r1" (click)="irRegistro()">Olvidé la contraseña</button>
     </div>
     <div class='right'>
       <img class='image-pokemon' [src]="url" alt="Pokemon" />

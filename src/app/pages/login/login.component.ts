@@ -5,6 +5,7 @@ import { PokeapiService } from 'src/app/services/pokeapi.service';
 import { PokedexService } from 'src/app/services/pokedex.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
+import { flatMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent implements OnInit {
   email: string = '';
   password: string = '';
   bln: boolean = false;
+  tempId!: number;
 
   ngOnInit(): void {
     this.getPokemon();
@@ -59,38 +61,55 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  irRegistro() {
+    this.router.navigate(['/sign']);
+  }
+
   handleLogin() {
-    this.pokedexService.isAuthenticated(this.email, this.password).subscribe(
+    this.userService.getUserByUsername(this.email, this.password, this.email).pipe(
+      flatMap((res: any) => {
+        sessionStorage.setItem('id', res.id);
+        this.tempId = res.id;
+        return this.userService.isAuthenticated(this.tempId, this.email, this.password);
+      })
+    ).subscribe(
       (res: any) => {
-        console.log('Entro..', res);
-        let credentials = btoa(`${this.email}:${this.password}`);
-        sessionStorage.setItem('isLoggedIn', 'true');
-        sessionStorage.setItem('credentials', credentials)
-        this.userService.getUserByUsername(this.email).subscribe(
-          (res: any) => {
-            sessionStorage.setItem('id', res.id);
-            console.log(typeof (res.id))
-          }
-        )
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Logged successfully',
-          showConfirmButton: false,
-          timer: 1500
-        })
-        this.router.navigate(['/fetch'], { queryParams: { email: this.email }});
+        if (res) {
+          console.log(res)
+          console.log('Entro..', res);
+          let credentials = btoa(`${this.email}:${this.password}`);
+          sessionStorage.setItem('isLoggedIn', 'true');
+          sessionStorage.setItem('credentials', credentials)
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Acceso correcto',
+            showConfirmButton: false,
+            timer: 1500
+          })
+          this.router.navigate(['/fetch'], { queryParams: { email: this.email } });
+        } else {
+          Swal.fire({
+            title: 'Oops...',
+            text: `No haz confirmado tu correo electrónico`,
+            icon: 'error',
+          });
+          this.router.navigate(['/signin2']);
+        }
+
       },
       (error: any) => {
         Swal.fire({
           title: 'Oops...',
-          text: `Credenciales incorrectas`,
+          text: `Credenciales incorrectas o usuario inexistente`,
           icon: 'error',
         });
       }
     );
-
   }
+
+
+
 
   isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
 

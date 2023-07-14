@@ -1,0 +1,33 @@
+<main class='main'>
+    <div class="App">
+      <div class='left'>
+        <h1 class='title' [class]="tipoClass">Pokedex</h1>
+        <form (ngSubmit)="handleSignIn()" class='form'>
+          <input type="text" matInput [formControl]="emailFormControl" name="email" [(ngModel)]="email" autoComplete='off'
+            placeholder='Correo electrónico' />
+          <mat-error
+            *ngIf="emailFormControl.hasError('minlength') && !emailFormControl.hasError('required') && !emailFormControl.hasError('email')">
+            Ingresa un email válido de al menos 5 caracteres
+          </mat-error>
+          <input type="text" matInput [formControl]="usernameFormControl" name="username" [(ngModel)]="username" autoComplete='off'
+            placeholder='Usuario' />
+          <mat-error
+            *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+            Ingresa un usuario válido de al menos 5 caracteres
+          </mat-error>
+          <input type="password" name="password" [(ngModel)]="password" placeholder='Contraseña'
+            [formControl]="passwordFormControl" />
+          <mat-error
+            *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+            Ingresa una contraseña de al menos 5 caracteres
+          </mat-error>
+          <button [ngClass]="(!passwordFormControl.hasError('required') && !emailFormControl.hasError('required')) ? 'button' : 'disabled'" type="submit">
+            Registrar
+          </button>        
+        </form>
+      </div>
+      <div class='right'>
+        <img class='image-pokemon' [src]="url" alt="Pokemon" />
+      </div>
+    </div>
+  </main>

@@ -13,6 +13,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { CardPokemonComponent } from './components/card-pokemon/card-pokemon.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
+import { SigninComponent } from './pages/signin/signin.component';
+import { Signin2Component } from './pages/signin2/signin2.component';
 
 
 
@@ -23,7 +25,9 @@ import {MatInputModule} from '@angular/material/input';
     FetchComponent,
     SavedComponent,
     NavComponent,
-    CardPokemonComponent
+    CardPokemonComponent,
+    SigninComponent,
+    Signin2Component
   ],
   imports: [
     BrowserModule,
