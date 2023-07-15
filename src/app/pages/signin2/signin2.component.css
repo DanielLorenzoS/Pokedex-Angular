@@ -1,6 +1,5 @@
 .main {
     display: flex;
-    height: 100vh;
 }
 
 .App {
@@ -10,6 +9,9 @@
     align-items: center;
     margin: auto;
     padding: 2rem 3rem;
+    -webkit-box-shadow: 0px 2px 14px 1px rgba(13, 110, 253, 1);
+    -moz-box-shadow: 0px 2px 14px 1px rgba(13, 110, 253, 1);
+    box-shadow: 0px 2px 14px 1px rgba(13, 110, 253, 1);
 }
 
 .title {
@@ -30,6 +32,9 @@
 
 .left {
     padding: 2rem 3rem;
+}
+.right {
+    overflow-y: hidden;
 }
 
 input,
@@ -128,6 +133,13 @@ button {
     .App {
         flex-direction: column;
         margin-top: 0;
+        box-shadow: none;
+    }
+
+    .main {
+        -webkit-box-shadow: inset 0px 2px 14px 1px rgba(13, 110, 253, 1);
+        -moz-box-shadow: inset 0px 2px 14px 1px rgba(13, 110, 253, 1);
+        box-shadow: inset 0px 2px 14px 1px rgba(13, 110, 253, 1);
     }
 }
 
@@ -147,6 +159,7 @@ button {
         margin: 0;
         margin-bottom: 1rem;
     }
+
     .main {
         margin: auto;
     }
