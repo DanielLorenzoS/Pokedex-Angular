@@ -130,7 +130,7 @@ button {
     width: 100%;
 }
 
-@media screen and (max-width: 880px) {
+@media screen and (max-width: 1200px) {
     .App {
         width: 80%;
     }
@@ -165,6 +165,7 @@ button {
     .title {
         margin: 0;
         margin-bottom: 1rem;
+        font-size: 28px;
     }
 
     .main {
