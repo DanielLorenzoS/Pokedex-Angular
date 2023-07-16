@@ -6,6 +6,7 @@ import { PokedexService } from 'src/app/services/pokedex.service';
 import { UserService } from 'src/app/services/user.service';
 import Swal from 'sweetalert2';
 import { flatMap } from 'rxjs/operators';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(private pokeapiService: PokeapiService,
     private pokedexService: PokedexService,
     private router: Router,
-    private userService: UserService) { }
+    private userService: UserService,
+    private spinner: NgxSpinnerService) { }
 
   url: string = '';
   tipoClass: string = '';
@@ -65,7 +67,12 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/sign']);
   }
 
+  goRecover() {
+    this.router.navigate(['/recuperar']);
+  }
+
   handleLogin() {
+    this.spinner.show();
     this.userService.getUserByUsername(this.email, this.password, this.email).pipe(
       flatMap((res: any) => {
         sessionStorage.setItem('id', res.id);
@@ -74,6 +81,7 @@ export class LoginComponent implements OnInit {
       })
     ).subscribe(
       (res: any) => {
+        this.spinner.hide();
         if (res) {
           console.log(res)
           console.log('Entro..', res);
@@ -94,11 +102,13 @@ export class LoginComponent implements OnInit {
             text: `No haz confirmado tu correo electrónico`,
             icon: 'error',
           });
+          sessionStorage.setItem('username', this.email)
           this.router.navigate(['/signin2']);
         }
 
       },
       (error: any) => {
+        this.spinner.hide();
         Swal.fire({
           title: 'Oops...',
           text: `Credenciales incorrectas o usuario inexistente`,

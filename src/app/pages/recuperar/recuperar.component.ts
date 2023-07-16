@@ -7,15 +7,13 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-signin',
-  templateUrl: './signin.component.html',
-  styleUrls: ['./signin.component.css']
+  selector: 'app-recuperar',
+  templateUrl: './recuperar.component.html',
+  styleUrls: ['./recuperar.component.css']
 })
-export class SigninComponent implements OnInit {
+export class RecuperarComponent implements OnInit {
 
-  emailFormControl = new FormControl('', [Validators.required, Validators.minLength(5), Validators.email]);
-  usernameFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(5)]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.email]);
 
   constructor(private pokeapiService: PokeapiService,
     private userService: UserService,
@@ -25,13 +23,14 @@ export class SigninComponent implements OnInit {
   url: string = '';
   tipoClass: string = '';
   tipo: string = '';
-  email: string = '';
-  username: string = '';
   password: string = '';
-
+  email: string = '';
+  username!: string;
+  tempId!: number;
 
   ngOnInit(): void {
     this.getPokemon();
+    this.username = sessionStorage.getItem('username') ?? '';
   }
 
   getPokemon() {
@@ -61,50 +60,47 @@ export class SigninComponent implements OnInit {
     );
   }
 
-  handleSignIn() {
+
+  handleSendTokenPassword() {
     this.spinner.show();
-    let blnUsername = false;
+
+    this.userService.getUserByEmail(this.email).subscribe(
+      (res: any) => {
+        sessionStorage.setItem('id', res.id);
+      }
+    )
+
     let blnEmail = false;
     this.userService.getAllUsers().subscribe(
       (res: any) => {
         res.map((e: any) => {
-          (e.username === this.username) ? blnUsername = true : blnUsername;
+          this.spinner.hide();
           (e.email === this.email) ? blnEmail = true : blnEmail;
         })
-        if (blnUsername) {
+        if (!blnEmail) {
           Swal.fire({
-            text: `El usuario ya está en uso`,
+            text: `El correo no ha sido registrado`,
             icon: 'info',
           });
           this.spinner.hide();
         }
         if (blnEmail) {
-          Swal.fire({
-            text: `El correo ya está en uso`,
-            icon: 'info',
-          });
-          this.spinner.hide();
-        }
-        if (!blnEmail && !blnUsername) {
-          this.userService.registerUser(this.email, this.username, this.password).subscribe(
+          this.userService.sendTokenPasswordEmail(this.email).subscribe(
             (res) => {
               this.spinner.hide();
-              console.log(res)
-              sessionStorage.setItem('username', this.username)
-              this.router.navigate(['/signin2']);
             }
           )
+          this.router.navigate(['/recuperar2']);
         }
+      },
+      (error: any) => {
+        this.spinner.hide();
+        Swal.fire({
+          title: 'Oops...',
+          text: `No se pudo enviar el código`,
+          icon: 'error',
+        });
       }
     )
-
   }
-
-  isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
-
-  handleAuth(): boolean {
-    return sessionStorage.getItem('isLoggedIn') === 'true';
-  }
-
-
 }

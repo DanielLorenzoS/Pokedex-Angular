@@ -1,0 +1,24 @@
+<main class='main'>
+    <div class="App">
+        <div class='left'>
+            <h2 class='title' [class]="tipoClass">Recuperar contraseña</h2>
+            <form (ngSubmit)="handleSendTokenPassword()" class='form'>
+                <input type="text" matInput [formControl]="emailFormControl" name="email" [(ngModel)]="email"
+                    autoComplete='off' placeholder='Correo electrónico' />
+                <mat-error *ngIf="!emailFormControl.hasError('required')
+                && emailFormControl.hasError('email')">
+                    Ingresa un correo electrónico válido
+                </mat-error>
+                <button
+                    [ngClass]="(!emailFormControl.hasError('required')) 
+                    && emailFormControl.hasError('email') ? 'button' : 'disabled'"
+                    type="submit">
+                    Enviar código
+                </button>
+            </form>
+        </div>
+        <div class='right'>
+            <img class='image-pokemon' [src]="url" alt="Pokemon" />
+        </div>
+    </div>
+</main>

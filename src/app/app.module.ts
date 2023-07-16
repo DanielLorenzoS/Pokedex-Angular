@@ -15,7 +15,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatInputModule} from '@angular/material/input';
 import { SigninComponent } from './pages/signin/signin.component';
 import { Signin2Component } from './pages/signin2/signin2.component';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { RecuperarComponent } from './pages/recuperar/recuperar.component';
+import { Recuperar2Component } from './pages/recuperar2/recuperar2.component';
+import { Recuperar3Component } from './pages/recuperar3/recuperar3.component';
 
 
 @NgModule({
@@ -27,7 +30,10 @@ import { Signin2Component } from './pages/signin2/signin2.component';
     NavComponent,
     CardPokemonComponent,
     SigninComponent,
-    Signin2Component
+    Signin2Component,
+    RecuperarComponent,
+    Recuperar2Component,
+    Recuperar3Component
   ],
   imports: [
     BrowserModule,
@@ -37,7 +43,8 @@ import { Signin2Component } from './pages/signin2/signin2.component';
     MatButtonModule,
     FormsModule,
     MatInputModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgxSpinnerModule
   ],
   providers: [LoginComponent],
   bootstrap: [AppComponent]

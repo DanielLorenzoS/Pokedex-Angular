@@ -7,13 +7,13 @@ import Swal from 'sweetalert2';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
-  selector: 'app-signin2',
-  templateUrl: './signin2.component.html',
-  styleUrls: ['./signin2.component.css']
+  selector: 'app-recuperar2',
+  templateUrl: './recuperar2.component.html',
+  styleUrls: ['./recuperar2.component.css']
 })
-export class Signin2Component implements OnInit {
+export class Recuperar2Component implements OnInit {
 
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(8)]);
+  emailFormControl = new FormControl('', [Validators.required, Validators.minLength(8), Validators.email]);
 
   constructor(private pokeapiService: PokeapiService,
     private userService: UserService,
@@ -23,14 +23,12 @@ export class Signin2Component implements OnInit {
   url: string = '';
   tipoClass: string = '';
   tipo: string = '';
-  password: string = '';
+  email: string = '';
   username!: string;
-  tempId!: number;
 
   ngOnInit(): void {
+    this.getPokemon();
     this.username = sessionStorage.getItem('username') ?? '';
-    (this.username === '') ? this.router.navigate(['/']) : this.getPokemon();
-
   }
 
   getPokemon() {
@@ -61,44 +59,37 @@ export class Signin2Component implements OnInit {
   }
 
 
-  handleValidateToken() {
-    this.spinner.show();
-    this.userService.getUserByUsernameToken(this.username).subscribe(
-      (res: any) => {
-        this.tempId = res.id;
-        console.log(res)
-        this.userService.validateTokenEmail(this.tempId, this.password).subscribe(
-          (res) => {
-            console.log(res)
-            if (res != null) {
-              this.spinner.hide();
-              Swal.fire({
-                position: 'center',
-                icon: 'success',
-                title: 'Correo confirmado',
-                showConfirmButton: false,
-                timer: 1500
-              })
-              sessionStorage.removeItem('username');
-              this.router.navigate(['/']);
-            } else {
-              this.spinner.hide();
-              Swal.fire({
-                text: `El código es erróneo`,
-                icon: 'warning',
-              });
-            }
-          },
-          (error: any) => {
-            this.spinner.hide();
+  handleSendTokenPassword() {
+    if (this.email.length === 0) {
+      Swal.fire({
+        text: `Ingresa el código`,
+        icon: 'error',
+      });
+    } else {
+      this.spinner.show();
+
+      this.userService.validateTokenPasswordEmail(this.email).subscribe(
+        (res: any) => {
+          this.spinner.hide();
+          if (res) {
+            this.router.navigate(['/recuperar3']);
+          } else {
             Swal.fire({
-              text: `El código es erróneo`,
+              text: `El código no es válido`,
               icon: 'warning',
             });
           }
-        )
-      }
-    )
-  }
 
+        },
+        (error: any) => {
+          this.spinner.hide();
+          Swal.fire({
+            title: 'Oops...',
+            text: `No se pudo validar el código`,
+            icon: 'error',
+          });
+        }
+      )
+    }
+  }
 }

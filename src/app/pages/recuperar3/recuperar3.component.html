@@ -1,0 +1,29 @@
+<main class='main'>
+    <div class="App">
+        <div class='left'>
+            <h2 class='title' [class]="tipoClass">Recuperar contraseña</h2>
+            <form (ngSubmit)="handleValidateTokenPassword()" class='form'>
+                <input type="password" name="password" placeholder='Nueva Contraseña'
+                    [formControl]="passwordFormControl" [(ngModel)]="password"/>
+                <mat-error
+                    *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+                    Ingresa una contraseña de al menos 8 caracteres
+                </mat-error>
+                <input type="password" name="confirmPassword" placeholder='Confirmar Contraseña'
+                    [formControl]="passwordFormControl" [(ngModel)]="confirmPassword"/>
+                <mat-error
+                    *ngIf="passwordFormControl.hasError('minlength') && !passwordFormControl.hasError('required')">
+                    Ingresa una contraseña de al menos 8 caracteres
+                </mat-error>
+                <button
+                    [ngClass]="(!passwordFormControl.hasError('required') && passwordFormControl.hasError('minleght')) ? 'button' : 'disabled'"
+                    type="submit">
+                    Cambiar contraseña
+                </button>
+            </form>
+        </div>
+        <div class='right'>
+            <img class='image-pokemon' [src]="url" alt="Pokemon" />
+        </div>
+    </div>
+</main>
