@@ -91,33 +91,6 @@ export class Recuperar3Component implements OnInit {
         });
       }
     }
-    /* } else {
-      this.spinner.show();
-
-      this.userService.validateTokenPasswordEmail(this.email).subscribe(
-        (res: any) => {
-          this.spinner.hide();
-          if (res) {
-            this.router.navigate(['/recuperar3']);
-          } else {
-            Swal.fire({
-              text: `El código no es válido`,
-              icon: 'warning',
-            });
-          }
-
-        },
-        (error: any) => {
-          this.spinner.hide();
-          Swal.fire({
-            title: 'Oops...',
-            text: `No se pudo validar el código`,
-            icon: 'error',
-          });
-        }
-      )
-    } */
   }
-
 
 }
